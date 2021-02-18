@@ -20,13 +20,35 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 4. Click Generate
 5. Extract downloaded zip file to project directory (git repo)
 
+### Add Unit Tests
+
+### Configure Jenkins
+1. From the Jenkins dashboard, select Mangage Jenkins > Manage Plugins.
+2. Search for Build Pipeline, and install.
+3. Search for Copy Artifact, and install.
+4. Search for Deploy to container, and install.
+
+
 ### Create Jenkins Build Job
 1. From the Jenkins dashboard, select New Item > Freestyle Project. Name the project "CICD-Project1-Build"
 2. Under Source Code Management, select Git. Paste the link to your github repo in the Repository URL field.
 3. Under Build Triggers, select Poll SCM. Enter "0 0 * * *" to check every night for new commits to trigger a build.
 4. Under Build Environment, select Delete workspace before build starts
 5. Under Build, select Add build step > Execute Shell. Enter "mvn spring-boot:build-image" in the Command field.
-6. Under Post-build Actions select Ad post-build action > Build other projects.
-7. Enter CICD-Project1-Test in the Projects to build field, and select Trigger only if build is stable.
+6. Under Post-build Actions select Add post-build action > Archive the artifacts.
+7. Enter "target/*.jar" in the Files to archive field.
+8. Under Post-build Actions select Add post-build action > Build other projects.
+9. Enter CICD-Project1-Test in the Projects to build field, and select Trigger only if build is stable.
 
 ### Create Jenkins Test Job
+1. From the Jenkins dashboard, select New Item > Freestyle Project. Name the project "CICD-Project1-Test"
+2. Under Source Code Management, select Git. Paste the link to your github repo in the Repository URL field.
+3. Under Build, select Add build step > Execute shell. Enter "mvn test" as the Command.
+4. Under Post-build Actions select Add post-build action > Build other projects.
+5. Enter CICD-Project1-Deploy in the Projects to build field, and select Trigger only if build is stable.
+6. Under Post-build Actions select Add post-build action > Publish Junit test result report.
+7. Enter "target/surefire-reports/*.xml" in the Test report XMLs field.
+8. Save.
+
+### Create Jenkins Pipeline View
+### Create Jenkins 
