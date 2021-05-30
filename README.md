@@ -13,8 +13,8 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 2. Set the following
 - Project = Maven Project
 - Language = Java
-- Sprint Boot = 2.4.6
-- Packaging = War
+- Sprint Boot = 2.4.2
+- Packaging = Jar
 - Java = 8
 3. Click Add Depenedencies > Spring Web
 4. Click Generate
@@ -27,7 +27,7 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 2. Search for Build Pipeline, and install.
 3. Search for Copy Artifact, and install.
 4. Search for Deploy to container, and install.
-5. Search for AWS Elastic Beanstalk, and install.
+
 
 ### Create Jenkins Build Job
 1. From the Jenkins dashboard, select New Item > Freestyle Project. Name the project "CICD-Project1-Build"
@@ -36,7 +36,7 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 4. Under Build Environment, select Delete workspace before build starts
 5. Under Build, select Add build step > Execute Shell. Enter "mvn spring-boot:build-image" in the Command field.
 6. Under Post-build Actions select Add post-build action > Archive the artifacts.
-7. Enter "target/*.war" in the Files to archive field.
+7. Enter "target/*.jar" in the Files to archive field.
 8. Under Post-build Actions select Add post-build action > Build other projects.
 9. Enter CICD-Project1-Test in the Projects to build field, and select Trigger only if build is stable.
 
@@ -51,28 +51,4 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 8. Save.
 
 ### Create Jenkins Pipeline View
-1. 
-2. 
-3. 
-  
-### Create AWS Project
-1. Sign into AWS as root user.
-2. Create an Elastic-Beanstalk environment named Devopscicdproject-env and a Project named DevOpsCICDProject
-3. Copy AWS Credential and region
-  
-### Create Jenkins Deploy Job
-1. From the Jenkins dashboard, select New Item > Freestyle Project. Name the project "CICD-Project1-Deploy"
-2. Under Build Environment, select "Delete workspace before build starts"
-3. Under Build, select Add build step > Copy artifacts from another project. Set the following
-  - Project name: CICD-Project1-Build
-  - Which build: Latest successful build
-  - Artifacts to copy: **/*.war
-4. Under Build, select Add build step > AWS Elastic Beanstalk. Set the following
-  - AWS Credentials and Region
-    - Credentials: copied from above
-    - AWS Region: copied from above
-  - Application and Environment
-    - Application Name: DevOpsCICDProject
-    - Devopscicdproject-env
-  
-  
+### Create Jenkins 
