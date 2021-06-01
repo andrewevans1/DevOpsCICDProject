@@ -13,14 +13,12 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 2. Set the following
 - Project = Maven Project
 - Language = Java
-- Sprint Boot = 2.4.6
+- Sprint Boot = 2.5.0
 - Packaging = War
 - Java = 8
 3. Click Add Depenedencies > Spring Web
 4. Click Generate
 5. Extract downloaded zip file to project directory (git repo)
-
-### Add Unit Tests
 
 ### Configure Jenkins
 1. From the Jenkins dashboard, select Mangage Jenkins > Manage Plugins.
@@ -51,14 +49,15 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
 8. Save.
 
 ### Create Jenkins Pipeline View
-1. 
-2. 
-3. 
+1. From the Dashboard, click the plus button in the main screen next to the All tab.
+2. Select Build Pipeline View
+3. In the Pipeline Flow, set CICD-Project-Build as the Initial Job
   
 ### Create AWS Project
 1. Sign into AWS as root user.
 2. Create an Elastic-Beanstalk environment named Devopscicdproject-env and a Project named DevOpsCICDProject
 3. Copy AWS Credential and region
+4. All other AWS configuration is left as an exercise to the reader since this is a Jenkins project, not an AWS project
   
 ### Create Jenkins Deploy Job
 1. From the Jenkins dashboard, select New Item > Freestyle Project. Name the project "CICD-Project1-Deploy"
@@ -74,5 +73,10 @@ Build a web app with Springboot, Maven, Git, Jenkins, Tomcat, AWS EC2, JUnit
   - Application and Environment
     - Application Name: DevOpsCICDProject
     - Devopscicdproject-env
-  
-  
+  - Packaging
+    - Root Object: target (it will zip the contents of the target folder copied into the current workspace)
+  - Uploading 
+    - S3 Bucket Name: 
+    - S3 key prefix:
+  - Versioning
+    - Version Label Format: ${BUILD_NUMBER} 
